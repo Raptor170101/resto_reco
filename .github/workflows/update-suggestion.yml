@@ -2,9 +2,8 @@ name: Update Weekly Suggestion
 
 on:
   schedule:
-    # Exécute chaque lundi à 00:00 UTC
-    - cron: '0 0 * * 1'
-  workflow_dispatch: # Permet de lancer manuellement
+    - cron: '*/5 * * * *'  # Toutes les 5 minutes
+  workflow_dispatch: 
 
 jobs:
   update-suggestion:
