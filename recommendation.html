@@ -4,29 +4,94 @@
     <meta charset="UTF-8">
     <title>Suggestion de la semaine</title>
     <style>
-        body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 2em; }
-        h1 { color: #c0392b; }
-        p { font-size: 1.2em; }
+        body { 
+            font-family: 'Open Sans', sans-serif; 
+            max-width: 800px; 
+            margin: auto; 
+            padding: 2em;
+            background-color: #f8f8f8;
+            color: #4a3030;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d1c7c7;
+        }
+        h1 { 
+            color: #8b3a3a;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        .plat {
+            font-size: 24px;
+            color: #8b3a3a;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .date {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .suggestion {
+            font-size: 18px;
+            line-height: 1.6;
+            background-color: #f9f5f0;
+            padding: 20px;
+            border-left: 4px solid #8b3a3a;
+            margin-top: 20px;
+        }
+        .error {
+            color: #d32f2f;
+            text-align: center;
+            font-style: italic;
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Suggestion créative de la semaine</h1>
-    <div id="contenu">
-        Chargement...
+    <div class="container">
+        <h1>Suggestion créative de la semaine</h1>
+        <div id="contenu">
+            Chargement...
+        </div>
     </div>
 
     <script>
-        fetch('suggestion.json')
-            .then(response => response.json())
+        // Utiliser un chemin relatif pour GitHub Pages
+        fetch('./suggestion.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
+                // Formater la date en français
+                const date = new Date(data.date);
+                const dateFormatee = date.toLocaleDateString('fr-FR', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
                 document.getElementById("contenu").innerHTML = `
-                    <p><strong>Plat :</strong> ${data.plat}</p>
-                    <p><strong>Date :</strong> ${data.date}</p>
-                    <p><strong>Suggestion :</strong><br>${data.suggestion}</p>
+                    <div class="plat">🍽️ ${data.plat}</div>
+                    <div class="date">Mise à jour : ${dateFormatee}</div>
+                    <div class="suggestion">${data.suggestion}</div>
                 `;
             })
-            .catch(() => {
-                document.getElementById("contenu").innerText = "Erreur de chargement.";
+            .catch(error => {
+                console.error('Erreur:', error);
+                document.getElementById("contenu").innerHTML = `
+                    <div class="error">Impossible de charger la suggestion. Veuillez réessayer plus tard.</div>
+                `;
             });
     </script>
 </body>
