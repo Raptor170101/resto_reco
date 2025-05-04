@@ -2,7 +2,7 @@ name: Update Weekly Suggestion
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 0 * * 1'
   workflow_dispatch:
 
 # Ajouter les permissions ici
