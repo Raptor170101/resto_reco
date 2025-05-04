@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Suggestion de la semaine</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 2em; }
+        h1 { color: #c0392b; }
+        p { font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <h1>Suggestion créative de la semaine</h1>
+    <div id="contenu">
+        Chargement...
+    </div>
+
+    <script>
+        fetch('suggestion.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("contenu").innerHTML = `
+                    <p><strong>Plat :</strong> ${data.plat}</p>
+                    <p><strong>Date :</strong> ${data.date}</p>
+                    <p><strong>Suggestion :</strong><br>${data.suggestion}</p>
+                `;
+            })
+            .catch(() => {
+                document.getElementById("contenu").innerText = "Erreur de chargement.";
+            });
+    </script>
+</body>
+</html>
