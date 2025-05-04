@@ -31,8 +31,8 @@ jobs:
     
     - name: Commit and push changes
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.email "theofavey17@gmail.com"
+        git config --local user.name "Raptor170101"
         git add suggestion.json
         git commit -m "Update weekly suggestion - $(date +'%Y-%m-%d')"
         git push
