@@ -2,8 +2,12 @@ name: Update Weekly Suggestion
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Toutes les 5 minutes
-  workflow_dispatch: 
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+# Ajouter les permissions ici
+permissions:
+  contents: write
 
 jobs:
   update-suggestion:
@@ -31,8 +35,8 @@ jobs:
     
     - name: Commit and push changes
       run: |
-        git config --local user.email "theofavey17@gmail.com"
-        git config --local user.name "Raptor170101"
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         git add suggestion.json
         git commit -m "Update weekly suggestion - $(date +'%Y-%m-%d')"
         git push
